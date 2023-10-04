@@ -1,23 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import categorySlice from "../../reduxx/Category/categorySlice";
 import "./_cat-nav.scss";
 
 const CatNav = () => {
+  const categories = useSelector(categorySlice.getInitialState);
   return (
     <div>
       <div className="cat-nav-container container">
         <ul>
-          <li className="list-items">
-            <a href="#"> Men</a>
-          </li>
-          <li className="list-items">
-            <a href="#"> Women</a>
-          </li>
-          <li className="list-items">
-            <a href="#"> Kids</a>
-          </li>
-          <li className="list-items">
-            <a href="#"> Best offers</a>
-          </li>
+          {categories.map((category) => {
+            return (
+              <li className="list-items">
+                <a href="#"> {category}</a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
