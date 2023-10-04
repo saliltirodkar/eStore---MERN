@@ -1,22 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./_products.scss";
-import productSlice from "../../reduxx/Product/productSlice";
+import { getProducts } from "../../reduxx/Product/action";
 
 const Products = () => {
-  const productData = useSelector(productSlice.getInitialState);
+  const productData = useSelector((state) => state.pr.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
   return (
     <div className="products-container">
       {productData.map((product, key) => {
         return (
           <div className="mx-5 p-3 col-lg-3 col-md-6 product-card">
             <div className="product-image-container">
-              <img src={require("../../assets/images/shop/" + product.img)} />
+              <img
+                alt="Product_images"
+                src={require("../../assets/images/shop/" + product.product_img)}
+              />
             </div>
             <div className="product-info">
               <h5>
                 {" "}
-                <a href="#">{product.pName}</a>
+                <a href="#">{product.product_name}</a>
               </h5>
               <p className="product-price">${product.price}</p>
             </div>
